@@ -1,3 +1,4 @@
+from allure_commons.types import AttachmentType
 from selenium import webdriver
 import pytest
 import allure
@@ -16,11 +17,11 @@ class TestAllure:
         else:
             assert False
         self.driver.close()
-
+    @allure.severity(allure.severity_level.NORMAL)
     def test_SkippingTest(self):
         pytest.skip("Skipping the test")
 
-
+    @allure.severity(allure.severity_level.CRITICAL)
     def test_Login(self):
         self.driver = webdriver.Chrome(
             executable_path="C:\\Users\\User\\PycharmProjects\\PythonUnitTestPOMBased\\drivers\\chromedriver.exe")
@@ -37,6 +38,7 @@ class TestAllure:
             self.driver.close()
             assert True
         else:
+            allure.attach(self.driver.get_screenshot_as_png(),name="LogintestGetTitle",attachment_type=AttachmentType.PNG)
             self.driver.close()
             assert False
 
